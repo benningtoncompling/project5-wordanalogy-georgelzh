@@ -118,22 +118,31 @@ def get_similar_word(file_path, similarity_calculate_method):
                 # check which similarity method we are using
                 if similarity_calculate_method == 0:
                     similar_word =get_euclidean_distance(v[i][0], v[i][1], v[i][2])
-                    result.append(v[i][0]+ " " + v[i][1] + " "+ v[i][2] + " " + similar_word + "\n")
+                    result.append(v[i][0]+ " " + v[i][1] + " "+ v[i][2] + " ")
                     line_num = line_num + 1
                     if similar_word == v[i][3]:
                         correct_num = correct_num + 1
+                        result.append(similar_word + "\n")
+                    elif
+                        result.append("none \n")
                 elif similarity_calculate_method == 1:
                     similar_word = get_manhattan_distance(v[i][0], v[i][1], v[i][2])
                     line_num = line_num + 1
-                    result.append(v[i][0]+ " " + v[i][1] + " "+ v[i][2] + " " + similar_word + "\n")
+                    result.append(v[i][0]+ " " + v[i][1] + " "+ v[i][2] + " ")
                     if similar_word == v[i][3]:
                         correct_num = correct_num + 1
+                        result.append(similar_word + "\n")
+                    elif
+                        result.append("none \n")
                 elif similarity_calculate_method == 2:
                     similar_word = get_cosine_distance(v[i][0], v[i][1], v[i][2])
-                    result.append(v[i][0]+ " " + v[i][1] + " "+ v[i][2] + " " + similar_word + "\n")
+                    result.append(v[i][0]+ " " + v[i][1] + " "+ v[i][2] + " ")
                     line_num = line_num + 1
                     if similar_word == v[i][3]:
                         correct_num = correct_num + 1
+                        result.append(similar_word + "\n")
+                    elif
+                        result.append("none \n")
             except:
                 print("There is something wrong with the list")
 
