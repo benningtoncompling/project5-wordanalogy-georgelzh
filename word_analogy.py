@@ -31,20 +31,22 @@ def convert_str_to_float(dic):
             vv[i] = float(vv[i])
 
 
-def get_mag(vector):
-    mag = 0
-    for value in vector:
-        mag = mag + value * value
-    mag = sqrt(mag)
-    return mag
+# def get_mag(vector):
+#     mag = 0
+#     for value in vector:
+#         mag = mag + value * value
+#     mag = sqrt(mag)
+#     return mag
 
 
 def normalize(dic, should_normalize_type):
     if should_normalize_type == 1:
         for vector in dic.values():
-            mag = get_mag(vector)
-            for value in vector:
-                value = value / mag
+            vector = vector / numpy.linalg.norm(vector)  # learnt from Stack over flow
+
+            # # mag = get_mag(vector)
+            # for value in vector:
+            #     value = value / mag
 
 
 def get_euclidean_distance(a, b, c):
