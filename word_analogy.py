@@ -43,7 +43,6 @@ def normalize(dic, should_normalize_type):
     if should_normalize_type == 1:
         for vector in dic.values():
             mag = get_mag(vector)
-            # print(mag)
             for value in vector:
                 value = value / mag
 
@@ -66,7 +65,6 @@ def get_euclidean_distance(a, b, c):
             euclidean_distance = temp
             most_similar_word = k
     # return value
-    print(most_similar_word)
     return most_similar_word
 
 
@@ -84,7 +82,6 @@ def get_manhattan_distance(a, b, c):
             manhattan_distance = temp
             most_similar_word = k
     # return value
-    print(most_similar_word)
     return most_similar_word
 
 
@@ -93,7 +90,7 @@ def get_cosine_distance(a, b, c):
     b = numpy.array(dictionary.get(b))
     c = numpy.array(dictionary.get(c))
     final_array = c + b - a
-    cosine_similarity = -1
+    cosine_similarity = -9999
     most_similar_word = "none"
     for k, v in dictionary.items():
         vector = numpy.array(v)
@@ -101,7 +98,6 @@ def get_cosine_distance(a, b, c):
         if temp > cosine_similarity:
             cosine_similarity = temp
             most_similar_word = k
-    print(most_similar_word)
     return most_similar_word
 
 
@@ -117,7 +113,7 @@ def get_similar_word(file_path, similarity_calculate_method):
                 # loop the lines and calculate the similarity
                 # check which similarity method we are using
                 if similarity_calculate_method == 0:
-                    similar_word =get_euclidean_distance(v[i][0], v[i][1], v[i][2])
+                    similar_word = get_euclidean_distance(v[i][0], v[i][1], v[i][2])
                     result.append(v[i][0]+ " " + v[i][1] + " "+ v[i][2] + " ")
                     line_num = line_num + 1
                     if similar_word == v[i][3]:
@@ -144,14 +140,15 @@ def get_similar_word(file_path, similarity_calculate_method):
                     else:
                         result.append("none \n")
             except:
-                print("There is something wrong with the list")
+                print("Error list")
 
         # write out the result and Organize the output text
         with open(outPutFile, "a", encoding='UTF-8') as o:
             o.write(os.path.basename(file_path) + "\n" + "ACCURACY TOP1: " + str((correct_num / line_num) * 100) + "% " + "("
-                    + str(correct_num) + "/" + str(line_num) + ")")
+                    + str(correct_num) + "/" + str(line_num) + ")" + "\n")
         with open(outPutFolder + "\\" + os.path.basename(file_path), "w", encoding='UTF-8') as outputText:
             outputText.write(''.join(result))
+        print(os.path.basename(file_path))
     # return an array correct number and total number.
     return [correct_num, line_num]
 
@@ -176,7 +173,7 @@ def open_files_in_directory(directory):
         correct_num = correct_num + temp[0]
         total_num = total_num + temp[1]
     with open(outPutFile, "a", encoding='UTF-8') as c:
-        c.write("ACCURACY TOP1: " + str(correct_num / total_num) + "%" + " (" + str(correct_num) + "/" + str(total_num) + ")")
+        c.write("Total Accuracy: " + str(correct_num / total_num) + "%" + " (" + str(correct_num) + "/" + str(total_num) + ")")
 
 
 convert_str_to_float(dictionary)
